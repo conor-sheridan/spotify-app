@@ -2,5 +2,16 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
     },
-    "eslint.validate": ["javascript"]
+    "editor.wrappingColumn": 180,
+    "eslint.validate": [
+      "javascript"
+    ],
+    "json.schemas": [
+    {
+      "fileMatch": [
+        "/myfile"
+      ],
+      "url": "schemaURL"
+    }
+    ]
    }
