@@ -19,4 +19,4 @@ $app-theme: mat-light-theme((
 @include angular-material-theme($app-theme);
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: mat-color($mat-blue-grey, 900);}

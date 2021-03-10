@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { SpotifyService } from './services/spotify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  constructor(private spotifyService: SpotifyService) {}
+export class AppComponent {
+  constructor(
+    private router: Router,
+  ) {}
   title = 'spotify-app';
-  
-  ngOnInit() {
-    this.spotifyService.getToken()
-  }
 }
