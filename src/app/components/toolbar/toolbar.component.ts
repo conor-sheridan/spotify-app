@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 export class ToolbarComponent {
   constructor(
     private router: Router,
-  ) {}
+  ) {
+  }
 
   userPresent() {
     if(this.router.getCurrentNavigation() && this.router.getCurrentNavigation().extras.state.display_name)
