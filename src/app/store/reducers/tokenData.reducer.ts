@@ -29,4 +29,8 @@ export function reducer(
         }
         case actions.GET_TOKEN_DATA:
     }
+
+    return state;
 }
+
+export const getTokenData = (state: TokenState) =>  state;

@@ -2,13 +2,9 @@ import { ɵangular_packages_platform_browser_dynamic_platform_browser_dynamic_a 
 import { ActionsSubject } from '@ngrx/store';
 import * as actions from '../actions/index';
 
-export interface UserState {
-    userInfo: Object;
-};
+export interface UserState {};
 
-export const initialState: UserState = {
-    userInfo: {}
-};
+export const initialState: UserState = {};
 
 export function reducer(
     state = initialState,
@@ -18,9 +14,13 @@ export function reducer(
         case actions.ADD_USER_INFO: {
             return {
                 ...state,
-                userInfo: action.payload
+                ...action.payload
             };
         }
         case actions.GET_USER_INFO:
     }
+
+    return state;
 }
+
+export const getUserInfo = (state: UserState) => state;
