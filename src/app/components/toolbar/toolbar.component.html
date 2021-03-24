@@ -3,7 +3,10 @@
         <span>Slap the Bongo</span>
     </div>
     <span class='spacer'></span>
-    <div>
-        <button mat-raised-button color='accent' onclick="console.log('Login to Spotify')">login</button>
+    <div *ngIf='userName; else login'>
+        {{userName}}
     </div>
+    <ng-template #login>
+        <button mat-raised-button color='accent' onclick="console.log('Login to Spotify')">login</button>
+    </ng-template>
   </mat-toolbar>
