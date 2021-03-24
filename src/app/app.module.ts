@@ -11,11 +11,13 @@ import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     HomeComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

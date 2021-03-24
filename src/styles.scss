@@ -7,12 +7,14 @@
 $app-theme-primary: mat-palette($mat-teal, 700);
 $app-theme-accent: mat-palette($mat-blue-grey, 900);
 $app-theme-warn: mat-palette($mat-red);
+$app-card-secondary: mat-palette($mat-blue-grey, 200);
 
 $app-theme: mat-light-theme((
     color: (
         primary: $app-theme-primary,
         accent: $app-theme-accent,
-        warn: $app-theme-warn
+        warn: $app-theme-warn,
+        card-secondary: $app-card-secondary
     )
 ));
 

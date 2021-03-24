@@ -9,6 +9,7 @@ export class SpotifyService {
     constructor(private http: HttpClient, private router: Router){}
     
     AUTHORIZE_URL = 'https://accounts.spotify.com/authorize/';
+    PERSONAL_URL = 'https://api.spotify.com/v1/me';
 
     client_id = 'ccdce01d0db94d54bd999b45444ba5d0';
     redirect_uri = 'http://localhost:4200/home';
@@ -16,11 +17,14 @@ export class SpotifyService {
     show_dialog = false;
 
     getToken() {
-        window.location.href = 'https://accounts.spotify.com/authorize/?client_id=' + this.client_id + '&response_type=token&redirect_uri=' + encodeURI(this.redirect_uri) + '&scope=' + encodeURI(this.scope) + '&state=34fFs29kd09&show_dialog%3A%20true';
+        window.location.href = this.AUTHORIZE_URL + '?client_id=' + this.client_id + '&response_type=token&redirect_uri=' + encodeURI(this.redirect_uri) + '&scope=' + encodeURI(this.scope) + '&show_dialog%3A%20true';
     }
 
-    fetchMe(fragment) {
-        return this.http.get('https://api.spotify.com/v1/me', {headers: {'Authorization': fragment.token_type + ' ' + fragment.access_token}})
+    fetchMe(tokenData) {
+        return this.http.get(this.PERSONAL_URL, {headers: {'Authorization': tokenData.token_type + ' ' + tokenData.access_token}})
     }
 
+    fetchTopArtists(tokenData) {
+        return this.http.get(this.PERSONAL_URL + '/top/artists', {headers: {'Authorization': tokenData.token_type + ' ' + tokenData.access_token}})
+    }
 }
