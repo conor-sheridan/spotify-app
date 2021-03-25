@@ -25,6 +25,6 @@ export class SpotifyService {
     }
 
     fetchTopArtists(tokenData) {
-        return this.http.get(this.PERSONAL_URL + '/top/artists', {headers: {'Authorization': tokenData.token_type + ' ' + tokenData.access_token}})
+        return this.http.get(this.PERSONAL_URL + '/top/artists?limit=50', {headers: {'Authorization': tokenData.token_type + ' ' + tokenData.access_token}})
     }
 }

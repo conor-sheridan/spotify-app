@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { Store, State } from '@ngrx/store';
+import { MultiDataSet, Label } from 'ng2-charts';
+import { ChartType } from 'chart.js';
 
 import { SpotifyService } from '../../services/spotify.service';
 import { AddMusicData, AddTokenData, AddUserInfo } from '../../store/actions';
@@ -23,9 +25,20 @@ export class HomeComponent implements OnInit {
   artistsLoading: boolean = true;
   topArtists: {};
   userName: '';
+  genres: Object[] = [];
+  genreLabels: Label[] = [];
+  genreValues: MultiDataSet = [];
   dataSource: [];
   displayedColumns: string[] = ['name', 'popularity'];
   expandedElement: Object | null;
+
+  chartType: ChartType = 'pie';
+  chartOptions: any = {
+    legend: {
+      display: false
+    }
+  }
+
 
   constructor(
     private router: Router,
@@ -53,6 +66,7 @@ export class HomeComponent implements OnInit {
       }
     })
   }
+
   fetchUserData() {
     this.spotifyService.fetchMe(this.tokenData).subscribe((data: any) => {
       this.userName = data.id;
@@ -69,6 +83,18 @@ export class HomeComponent implements OnInit {
       this.artistsLoading = false;
       console.log('Added top artists', this.state.getValue());
       console.log(this.dataSource)
+      this.assembleGenres();
     })
+  }
+
+  assembleGenres() {
+    this.topArtists['items'].forEach((artist) => {
+      artist['genres'].forEach((genre) => {
+        const foundGenre = this.genres.find(knownGenre => knownGenre['name'] === genre)
+        foundGenre ? foundGenre['value'] = foundGenre['value'] + 1 : this.genres.push({name: genre, value: 1});
+      })
+    })
+    this.genreLabels = this.genres.map(genre => genre['name'])
+    this.genreValues = this.genres.map(genre => genre['value'])
   }
 }
