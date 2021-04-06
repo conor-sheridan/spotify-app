@@ -7,6 +7,7 @@ import { ChartType } from 'chart.js';
 
 import { SpotifyService } from '../../services/spotify.service';
 import { AddMusicData, AddTokenData, AddUserInfo } from '../../store/actions';
+import { Genre } from '../models/genre.model';
 
 @Component({
   selector: 'app-home',
@@ -25,9 +26,9 @@ export class HomeComponent implements OnInit {
   artistsLoading: boolean = true;
   topArtists: {};
   userName: '';
-  genres: Object[] = [];
+  genres: Genre[] = [];
   genreLabels: Label[] = [];
-  genreValues: MultiDataSet = [];
+  genreValues: number[] = [];
   dataSource: [];
   displayedColumns: string[] = ['name', 'popularity'];
   expandedElement: Object | null;
@@ -90,11 +91,22 @@ export class HomeComponent implements OnInit {
   assembleGenres() {
     this.topArtists['items'].forEach((artist) => {
       artist['genres'].forEach((genre) => {
-        const foundGenre = this.genres.find(knownGenre => knownGenre['name'] === genre)
-        foundGenre ? foundGenre['value'] = foundGenre['value'] + 1 : this.genres.push({name: genre, value: 1});
+        const foundGenre = this.genres.find(knownGenre => knownGenre.name === genre)
+        if(foundGenre) {
+          foundGenre.value = foundGenre.value + 1;
+          foundGenre.artists.push(artist);
+        } else {
+          this.genres.push({name: genre, value: 1, artists: [artist]});
+        }
       })
     })
-    this.genreLabels = this.genres.map(genre => genre['name'])
-    this.genreValues = this.genres.map(genre => genre['value'])
+    this.genres.sort((a, b) => (a.value <= b.value ? 1 : -1))
+    console.log(this.genres)
+    this.genreLabels = this.genres.map(genre => genre.name)
+    this.genreValues = this.genres.map(genre => genre.value)
+  }
+
+  createGenreList() {
+
   }
 }

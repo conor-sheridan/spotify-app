@@ -1,7 +1,7 @@
 .card-main {
     margin: 30px;
     height: 800px;
-    background:rgba(55,71,79,0.8);
+    background:rgba(55,71,79,0.7);
     display: flex;
     flex-direction: row;
 }
@@ -12,10 +12,37 @@
     margin-bottom: 0px;
     display: flex;
     flex-direction: column;
+    background: rgba(84,110,122,0.8);
 }
 
 .table-container {
     overflow: auto;
+}
+
+.genre {
+  background: #b0bec5;
+}
+
+.artist {
+  background: #cfd8dc;
+}
+
+mat-card-title {
+  color: white;
+}
+
+
+mat-accordion {
+  background: rgba(144, 164, 174, 0.9)
+}
+
+mat-expansion-panel-header {
+  width: 100%;
+  flex: 1 1 auto;
+}
+mat-panel-content {
+  display: flex;
+  flex-direction: row;
 }
 
 table {
@@ -50,4 +77,30 @@ tr.element-row:not(.expanded-row):active {
 
 .element-description-attribution {
   opacity: 0.5;
+}
+
+//Scrollbar
+
+.container-list {
+  overflow: auto;
+}
+
+.container-list::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  border-radius: 30px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.container-list::-webkit-scrollbar-thumb {
+  border-radius: 30px;
+  background-color: #263238; // Put your color
+}
+
+.container-list::-webkit-scrollbar-button,
+.container-list::-webkit-scrollbar-track,
+.container-list::-webkit-scrollbar-track-piece,
+.container-list::-webkit-scrollbar-corner,
+.container-list::-webkit-resizer {
+  display: none;
 }
