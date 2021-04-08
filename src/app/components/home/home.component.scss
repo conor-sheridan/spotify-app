@@ -1,86 +1,89 @@
-.card-main {
-    margin: 30px;
-    height: 800px;
-    background:rgba(55,71,79,0.7);
-    display: flex;
-    flex-direction: row;
-}
-
-.card-secondary {
-    margin: 30px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    display: flex;
-    flex-direction: column;
-    background: rgba(84,110,122,0.8);
-}
-
-.table-container {
-    overflow: auto;
-}
-
-.genre {
-  background: #b0bec5;
-}
-
-.artist {
-  background: #cfd8dc;
+.home-page {
+  display: flex;
+  justify-content: center;
 }
 
 mat-card-title {
   color: white;
 }
 
-
-mat-accordion {
-  background: rgba(144, 164, 174, 0.9)
+mat-panel-description {
+  display: flex;
+  justify-content: flex-end;
 }
 
-mat-expansion-panel-header {
-  width: 100%;
-  flex: 1 1 auto;
+.first-layer {
+    margin: 30px;
+    height: 85vh;
+    background:rgba(55,71,79,0.7);
+    display: flex;
+    width: fit-content;
 }
-mat-panel-content {
+
+.second-layer {
+    margin: 30px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(84,110,122,0.8);
+    width: 50vh;
+}
+
+.third-layer {
+  background: #b0bec5;
+}
+
+.fourth-layer {
+  background: #cfd8dc;
+}
+
+.fifth-layer {
+  background: #eceff1;
+}
+
+.artist-table {
+  margin-left: 10%;
+}
+
+.artist-image {
+  height: 50%;
+  width: 50%;
+  border-radius: 6px;
+}
+
+.card-content {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
-table {
-  width: 100%;
+.mat-table{    
+  border-radius: 6px;
+  overflow:hidden !important;
 }
 
-tr.detail-row {
-  height: 0;
+.spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-tr.element-row:not(.expanded-row):hover {
-  background: #f5f5f5;
+.table-container {
+    overflow: auto;
 }
 
-tr.element-row:not(.expanded-row):active {
-  background: #efefef;
+.right-aligned-header > .mat-content {
+  justify-content: space-between;
 }
 
-.element-row td {
-  border-bottom-width: 0;
+.mat-content > mat-panel-title, .mat-content > mat-panel-description {
+flex: 0 0 auto;
 }
 
-.element-detail {
-    overflow: hidden;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.element-description {
-  padding: 16px;
-}
-
-.element-description-attribution {
-  opacity: 0.5;
-}
 
 //Scrollbar
-
 .container-list {
   overflow: auto;
 }

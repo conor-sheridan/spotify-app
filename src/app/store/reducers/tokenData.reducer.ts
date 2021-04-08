@@ -27,6 +27,14 @@ export function reducer(
                 ...action.payload
             };
         }
+        case actions.REMOVE_TOKEN_DATA: {
+            return {
+                access_token: '',
+                expires_in: '',
+                state: '',
+                token_type: ''
+            }
+        }
         case actions.GET_TOKEN_DATA:
     }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { Store, State } from '@ngrx/store';
-import { MultiDataSet, Label } from 'ng2-charts';
+import { Label } from 'ng2-charts';
 import { ChartType } from 'chart.js';
 
 import { SpotifyService } from '../../services/spotify.service';
@@ -24,14 +24,14 @@ import { Genre } from '../models/genre.model';
 export class HomeComponent implements OnInit {
   tokenData: {};
   artistsLoading: boolean = true;
-  topArtists: {};
+  topArtists: Object[];
   userName: '';
   genres: Genre[] = [];
   genreLabels: Label[] = [];
   genreValues: number[] = [];
-  dataSource: [];
-  displayedColumns: string[] = ['name', 'popularity'];
+  displayedColumns: string[] = ['genre'];
   expandedElement: Object | null;
+  loading: boolean = true;
 
   chartType: ChartType = 'pie';
   chartOptions: any = {
@@ -78,18 +78,17 @@ export class HomeComponent implements OnInit {
 
   fetchTopArtists() {
     this.spotifyService.fetchTopArtists(this.tokenData).subscribe((data: any) => {
-      this.topArtists = data;
+      this.topArtists = data.items;
       this.store.dispatch(new AddMusicData(data));
-      this.dataSource = this.topArtists['items'];
       this.artistsLoading = false;
       console.log('Added top artists', this.state.getValue());
-      console.log(this.dataSource)
+      console.log(this.topArtists)
       this.assembleGenres();
     })
   }
 
   assembleGenres() {
-    this.topArtists['items'].forEach((artist) => {
+    this.topArtists.forEach((artist) => {
       artist['genres'].forEach((genre) => {
         const foundGenre = this.genres.find(knownGenre => knownGenre.name === genre)
         if(foundGenre) {
@@ -101,9 +100,9 @@ export class HomeComponent implements OnInit {
       })
     })
     this.genres.sort((a, b) => (a.value <= b.value ? 1 : -1))
-    console.log(this.genres)
     this.genreLabels = this.genres.map(genre => genre.name)
     this.genreValues = this.genres.map(genre => genre.value)
+    this.loading = false;
   }
 
   createGenreList() {

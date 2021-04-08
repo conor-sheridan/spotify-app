@@ -21,6 +21,11 @@ export function reducer(
                 topArtists: action.payload
             };
         }
+        case actions.REMOVE_MUSIC_DATA: {
+            return {
+                topArtists: {}
+            };
+        }
         case actions.GET_MUSIC_DATA:
     }
 

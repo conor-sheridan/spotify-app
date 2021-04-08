@@ -1,43 +1,35 @@
-<div>
-    <mat-card class='card-main'>
-        <mat-card class='card-secondary table-container container-list'>
+<div class="home-page">
+    <mat-spinner class="spinner" *ngIf="loading" [diameter]="200"></mat-spinner>
+    <mat-card *ngIf="!loading" class='first-layer'>
+        <mat-card class='second-layer table-container'>
             <mat-card-header>
                 <mat-card-title>
                     Top Artists
                 </mat-card-title>
             </mat-card-header>
-
-            <table 
-                mat-table
-                [dataSource]="dataSource"
-                multiTemplateDataRows
-            >
-                <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
-                    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-                    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="expandedDetail">
-                    <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-                        <div class="element-detail"
-                            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                            <div class="element-description">
-                                artist description
-                                <span class="element-description-attribution"> -- Wikipedia </span>
-                            </div>
-                            <img src={{element.images[1].url}} alt="Artist Image">
-                        </div>
-                    </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let element; columns: displayedColumns;"
-                    class="element-row"
-                    [class.expanded-row]="expandedElement === element"
-                    (click)="expandedElement = expandedElement === element ? null : element">
-                </tr>
-                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
-            </table>
+            <mat-accordion class="container-list">
+                <mat-expansion-panel class="third-layer" hideToggle *ngFor="let artist of topArtists">
+                    <mat-expansion-panel-header class="right-aligned-header">
+                        <mat-panel-title>
+                            {{artist.name | titlecase}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Popularity: {{artist.popularity}}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="card-content">
+                        <table mat-table [dataSource]="artist.genres" class="fourth-layer artist-table">
+                            <ng-container matColumnDef="genre">
+                                <th mat-header-cell *matHeaderCellDef> Genres </th>
+                                <td mat-cell *matCellDef="let genre"> {{genre}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <img src={{artist.images[0].url}} alt="Artist Image" class="artist-image">
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
         </mat-card>
         <!-- <mat-card class='card-secondary'>
             <canvas baseChart chart-legent="false"
@@ -48,14 +40,14 @@
                 >
             </canvas>
         </mat-card> -->
-        <mat-card class='card-secondary table-container'>
+        <mat-card class='second-layer table-container'>
             <mat-card-header>
                 <mat-card-title>
                     Your Genres
                 </mat-card-title>
             </mat-card-header>
             <mat-accordion class="container-list">
-                <mat-expansion-panel class="genre" hideToggle *ngFor="let genre of genres">
+                <mat-expansion-panel class="third-layer" hideToggle *ngFor="let genre of genres">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             {{genre.name | titlecase}}
@@ -65,16 +57,23 @@
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <mat-accordion>
-                        <mat-expansion-panel hideToggle class="artist" *ngFor="let artist of genre.artists">
+                        <mat-expansion-panel hideToggle class="fourth-layer" *ngFor="let artist of genre.artists">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     {{artist.name}}
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <img src={{artist.images[1].url}} alt="Artist Image">
-                            <p *ngFor="let genre of artist.genres">
-                                {{genre}}
-                            </p>
+                            <div class="card-content">
+                                <table mat-table [dataSource]="artist.genres" class="fifth-layer artist-table">
+                                    <ng-container matColumnDef="genre">
+                                        <th mat-header-cell *matHeaderCellDef> Genres </th>
+                                        <td mat-cell *matCellDef="let genre"> {{genre}} </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </table>
+                                <img src={{artist.images[0].url}} alt="Artist Image" class="artist-image">
+                            </div>
                         </mat-expansion-panel>
                     </mat-accordion>
                 </mat-expansion-panel>

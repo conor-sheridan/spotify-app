@@ -4,9 +4,12 @@
     </div>
     <span class='spacer'></span>
     <div *ngIf='userName; else login'>
-        {{userName}}
+        <button color="accent" mat-flat-button [matMenuTriggerFor]="menu">{{userName}}</button>
+        <mat-menu #menu="matMenu" class="menu-content">
+            <button class="menu-button" mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
     </div>
     <ng-template #login>
-        <button mat-raised-button color='accent' onclick="console.log('Login to Spotify')">login</button>
+        <button mat-raised-button color='accent' (click)="toolbarLogin()">login</button>
     </ng-template>
   </mat-toolbar>

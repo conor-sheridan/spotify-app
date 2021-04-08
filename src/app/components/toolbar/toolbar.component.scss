@@ -1,3 +1,11 @@
 .spacer {
     flex: 1 1 auto
 }
+
+::ng-deep .menu-content {
+    background: #455a64;
+}
+
+.menu-button {
+    color:white;
+}
